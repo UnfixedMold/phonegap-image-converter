@@ -1,6 +1,7 @@
 var fs = require('fs')
 const sharp = require('sharp')
 const imageConfigs = require('./image-config.json')
+const path = require('path')
 
 const createSubDirSynch = path => {
 
@@ -28,7 +29,7 @@ const createSubDirSynch = path => {
 
     // Recursively creating all directories in path
 
-    createDir(path, '.', -1);
+    createDir(path, __dirname, -1);
 };
 
 async function main() {
@@ -47,14 +48,14 @@ async function main() {
 
         const resizedFileBuffer = await resizeImage(inputFileBuffer, dimensios)
 
-        const dirPath = outputFileName.split('/').slice(0, -1).join('/')
+        const dirPath = path.parse(outputFileName).dir
 
         createSubDirSynch(dirPath)
 
         fs.writeFileSync(outputFileName, resizedFileBuffer)
     }
 
-    const sourceIconPath = './assets/icon.jpg';
+    const sourceIconPath = path.resolve(__dirname, 'assets/icon.jpg');
 
     const sourceIconBuffer = fs.readFileSync(sourceIconPath)
 
@@ -70,7 +71,7 @@ async function main() {
         await convertImage(sourceIconBuffer, './res/icons/ios/' + fileName, dimensions)
     });
 
-    const sourceScreenPath = './assets/screen.jpg';
+    const sourceScreenPath = path.resolve(__dirname, 'assets/screen.jpg');
 
     const sourceScreenBuffer = fs.readFileSync(sourceScreenPath)
 
