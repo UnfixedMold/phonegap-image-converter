@@ -54,7 +54,7 @@ async function main() {
         fs.writeFileSync(outputFileName, resizedFileBuffer)
     }
 
-    const sourceIconPath = './assets/icon.png';
+    const sourceIconPath = './assets/icon.jpg';
 
     const sourceIconBuffer = fs.readFileSync(sourceIconPath)
 
@@ -70,7 +70,7 @@ async function main() {
         await convertImage(sourceIconBuffer, './res/icons/ios/' + fileName, dimensions)
     });
 
-    const sourceScreenPath = './assets/screen.png';
+    const sourceScreenPath = './assets/screen.jpg';
 
     const sourceScreenBuffer = fs.readFileSync(sourceScreenPath)
 
